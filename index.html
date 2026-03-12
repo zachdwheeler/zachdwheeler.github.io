@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zachary Wheeler — Robotics Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --bg2: #eceae4;
+      --fg: #1a1916;
+      --fg2: #6b6860;
+      --accent: #c0392b;
+      --border: #d4d1c8;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    #hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 57px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-left {
+      padding: 72px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+    }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: var(--mono);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: var(--fg2);
+      max-width: 400px;
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+    .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border: 1px solid var(--fg);
+      background: transparent;
+      color: var(--fg);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--fg); color: var(--bg); }
+    .btn.primary { background: var(--fg); color: var(--bg); }
+    .btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+    .hero-right {
+      padding: 72px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .stat-cell { background: var(--bg); padding: 24px 20px; }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg2);
+      line-height: 1.4;
+    }
+    .pop { color: var(--accent); font-weight: 500; }
+    .skills-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 9px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--fg2);
+    }
+    .tag.hi { border-color: var(--accent); color: var(--accent); background: #fdf0ee; }
+
+    /* SECTIONS */
+    section { padding: 72px 48px; border-top: 1px solid var(--border); }
+    .section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 48px; }
+    .section-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; }
+    h2 { font-family: var(--mono); font-size: 20px; font-weight: 500; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .about-text p { font-size: 15px; color: var(--fg2); line-height: 1.8; margin-bottom: 14px; }
+    .about-text p strong { color: var(--fg); font-weight: 500; }
+    .about-facts { border: 1px solid var(--border); }
+    .fact-row { display: flex; border-bottom: 1px solid var(--border); }
+    .fact-row:last-child { border-bottom: none; }
+    .fact-key {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--fg2);
+      padding: 13px 14px;
+      width: 120px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .fact-val { font-family: var(--mono); font-size: 12px; color: var(--fg); padding: 13px 14px; }
+
+    /* PROJECTS */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .proj-card { background: var(--bg); padding: 28px; transition: background 0.2s; }
+    .proj-card:hover { background: var(--bg2); }
+    .proj-cat {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .proj-title { font-family: var(--mono); font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+    .proj-desc { font-size: 13px; color: var(--fg2); line-height: 1.65; margin-bottom: 18px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* EXPERIENCE */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 28px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-date { font-family: var(--mono); font-size: 11px; color: var(--fg2); margin-bottom: 5px; }
+    .exp-org { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+    .exp-role { font-family: var(--mono); font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .exp-bullets li { font-size: 13px; color: var(--fg2); padding-left: 16px; position: relative; line-height: 1.6; }
+    .exp-bullets li::before { content: '---'; position: absolute; left: 0; color: var(--border); font-family: var(--mono); font-size: 10px; top: 3px; }
+
+    /* CONTACT */
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .contact-blurb { font-size: 15px; color: var(--fg2); line-height: 1.8; }
+    .contact-links { border: 1px solid var(--border); }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--fg);
+      transition: background 0.2s;
+    }
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { background: var(--bg2); }
+    .cl-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg2);
+      width: 76px;
+      flex-shrink: 0;
+    }
+    .cl-val { font-family: var(--mono); font-size: 12px; }
+
+    /* FOOTER */
+    footer {
+      padding: 22px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span { font-family: var(--mono); font-size: 11px; color: var(--fg2); }
+
+    /* ANIMATIONS */
+    .fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 18px; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { border-right: none; padding: 48px 24px; }
+      .hero-right { padding: 0 24px 48px; }
+      section { padding: 48px 24px; }
+      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 28px; }
+      .exp-item { grid-template-columns: 1fr; gap: 6px; }
+      footer { padding: 18px 24px; flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">ZW_</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">// Robotics Engineer</p>
+    <h1>Zachary<br>Wheeler</h1>
+    <p class="hero-desc">
+      Building autonomous systems that work under real conditions — from FRC competition floors to VTOL UAVs. Robotics Engineering student at Olin College.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn primary">View Projects</a>
+      <a href="Zachary_Wheeler_Resume.pdf" download class="btn">&#8595; Resume</a>
+      <a href="#contact" class="btn">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Years FRC — <span class="pop">2 as Lead</span></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">146K+</div>
+        <div class="stat-label">Records Crawled</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Autonomous Systems Built</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">'29</div>
+        <div class="stat-label">Olin College Grad</div>
+      </div>
+    </div>
+    <div class="skills-row">
+      <span class="tag hi">Python</span>
+      <span class="tag hi">ROS2</span>
+      <span class="tag hi">Java</span>
+      <span class="tag">PID Control</span>
+      <span class="tag">AprilTag Vision</span>
+      <span class="tag">PathPlanner</span>
+      <span class="tag">Docker</span>
+      <span class="tag">ArduPilot SITL</span>
+      <span class="tag">Git</span>
+      <span class="tag">Linux</span>
+      <span class="tag">YALL / YAGSL</span>
+      <span class="tag">QGroundControl</span>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>I'm a first-year Robotics Engineering student at <strong>Olin College of Engineering</strong>, one of the most project-driven engineering schools in the country. I came in with four years of hands-on experience in competitive robotics — which is how I learn best: build something, break it, fix it.</p>
+      <p>My background spans real-time vision systems, autonomous navigation, and scalable software pipelines. I'm drawn to problems where software has to work reliably under pressure — whether that's a 2-minute FRC match or a fully autonomous UAV flight.</p>
+      <p>Outside of engineering, I'm navigating leukemia treatment while staying active in school and side projects. It's taught me a lot about focus and not wasting time on things that don't matter.</p>
+    </div>
+    <div class="about-facts fade-in">
+      <div class="fact-row">
+        <span class="fact-key">School</span>
+        <span class="fact-val">Olin College of Engineering</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-key">Degree</span>
+        <span class="fact-val">B.S. Robotics Engineering</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-key">Grad</span>
+        <span class="fact-val">Expected May 2029</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-key">Location</span>
+        <span class="fact-val">Needham, MA</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-key">Focus</span>
+        <span class="fact-val">Autonomous systems and controls</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-key">Email</span>
+        <span class="fact-val">zachdwheeler@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>Projects</h2>
+  </div>
+  <div class="proj-grid">
+
+    <div class="proj-card fade-in">
+      <div class="proj-cat">FRC // Vision</div>
+      <div class="proj-title">AprilTag Auto-Tracking System</div>
+      <p class="proj-desc">Real-time AprilTag vision enabling automatic goal tracking on a moving robot. Used actively by drivers in live competition matches — not a demo, production software under real match pressure.</p>
+      <div class="proj-tags">
+        <span class="tag">Java</span>
+        <span class="tag">AprilTag</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">FRC</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-cat">FRC // Controls</div>
+      <div class="proj-title">Adaptive PID Flywheel Controller</div>
+      <p class="proj-desc">Distance-based RPM lookup table with adaptive PID flywheel control that dynamically compensated for changing mechanical conditions mid-competition. Solved real reliability failures at events.</p>
+      <div class="proj-tags">
+        <span class="tag">Java</span>
+        <span class="tag">PID Control</span>
+        <span class="tag">FRC</span>
+        <span class="tag">Shooter Systems</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-cat">FRC // Autonomous</div>
+      <div class="proj-title">PathPlanner Autonomous Sequences</div>
+      <p class="proj-desc">Full action-sequenced autonomous routes achieving consistent 2-3 piece cycles. Single-button alignment to nearest scoring location via YALL and YAGSL swerve — consulting library authors directly for integration.</p>
+      <div class="proj-tags">
+        <span class="tag">PathPlanner</span>
+        <span class="tag">YALL</span>
+        <span class="tag">YAGSL</span>
+        <span class="tag">Swerve Drive</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-cat">UAV // ROS2</div>
+      <div class="proj-title">VTOL UAV ROS2 Integration</div>
+      <p class="proj-desc">ROS2 Humble integration for a fully autonomous VTOL UAV at Olin's Aeronautics Team. Containerized with Docker on dual-boot Linux, ArduPilot SITL simulation configured, foundational node and topic architecture implemented.</p>
+      <div class="proj-tags">
+        <span class="tag">ROS2</span>
+        <span class="tag">Docker</span>
+        <span class="tag">ArduPilot</span>
+        <span class="tag">QGroundControl</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-cat">Data Engineering</div>
+      <div class="proj-title">Dutch Healthcare Web Crawler</div>
+      <p class="proj-desc">Multithreaded Python crawler scraping 146,000+ Dutch healthcare provider pages. Scalable pipelines with dynamic provider discovery, parallel execution, and live ingestion of newly added entries.</p>
+      <div class="proj-tags">
+        <span class="tag">Python</span>
+        <span class="tag">BeautifulSoup</span>
+        <span class="tag">Multithreading</span>
+        <span class="tag">concurrent.futures</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-cat">Tooling // Baja SAE</div>
+      <div class="proj-title">BOM Inventory Tracker</div>
+      <p class="proj-desc">Parts inventory system with BOM logging, physical storage lookup, and live shipping tracking. Designed full system architecture, built Google Sheets live sync and carrier API integration.</p>
+      <div class="proj-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Google Sheets API</span>
+        <span class="tag">Carrier APIs</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>Experience</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="exp-item fade-in">
+      <div>
+        <div class="exp-date">Aug 2025 – Present</div>
+        <div class="exp-org">Olin Aeronautics</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Team Member — ROS2 Integration</div>
+        <ul class="exp-bullets">
+          <li>Leading ROS2 integration for a fully autonomous VTOL UAV project</li>
+          <li>Configured ArduPilot SITL and QGroundControl for simulated autonomous flight testing</li>
+          <li>Set up ROS2 Humble inside Docker on dual-boot Linux; building out foundational nodes and topics</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div>
+        <div class="exp-date">Sept 2024 – Present</div>
+        <div class="exp-org">World Data Exchange</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineering Intern</div>
+        <ul class="exp-bullets">
+          <li>Built a multithreaded Python web crawler processing 146,000+ Dutch healthcare provider pages</li>
+          <li>Developed scalable pipelines using requests, BeautifulSoup, re, and concurrent.futures</li>
+          <li>Adapted crawling logic to dynamically discover and ingest newly added providers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div>
+        <div class="exp-date">Sept 2023 – May 2025</div>
+        <div class="exp-org">FRC Team</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Lead — FIRST Robotics Competition</div>
+        <ul class="exp-bullets">
+          <li>Co-led a 5-person software team across 2 seasons with no adult mentorship, owning vision, autonomous navigation, and shooter systems end to end</li>
+          <li>Built real-time AprilTag vision for automatic goal tracking used actively in competition matches</li>
+          <li>Developed PathPlanner autonomous routes with action sequencing, achieving consistent 2-3 piece auto cycles</li>
+          <li>Implemented single-button autonomous alignment using YALL and YAGSL, consulting library authors directly for debugging</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div>
+        <div class="exp-date">Sept 2021 – May 2023</div>
+        <div class="exp-org">FRC Team</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Team Member — FIRST Robotics Competition</div>
+        <ul class="exp-bullets">
+          <li>Contributed to robot software development across 2 seasons as a core team member</li>
+          <li>Gained hands-on experience with control systems, autonomous routines, and competition-ready code</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div>
+        <div class="exp-date">Jun 2022 – Aug 2025</div>
+        <div class="exp-org">MezéHub</div>
+      </div>
+      <div>
+        <div class="exp-role">IT and Systems</div>
+        <ul class="exp-bullets">
+          <li>Independently migrated legacy systems to Toast POS and integrated online ordering with Shopify</li>
+          <li>Deployed and maintained sensor-based temperature monitoring systems for refrigeration units</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Contact</h2>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-blurb fade-in">
+      Always open to conversations about robotics, autonomous systems, or internship opportunities. Whether you are working on something cool or just want to connect — reach out.
+    </div>
+    <div class="contact-links fade-in">
+      <a href="mailto:zachdwheeler@gmail.com" class="contact-link">
+        <span class="cl-label">Email</span>
+        <span class="cl-val">zachdwheeler@gmail.com</span>
+      </a>
+      <a href="https://linkedin.com/in/zachdwheeler" target="_blank" class="contact-link">
+        <span class="cl-label">LinkedIn</span>
+        <span class="cl-val">linkedin.com/in/zachdwheeler</span>
+      </a>
+      <a href="https://github.com/zachdwheeler" target="_blank" class="contact-link">
+        <span class="cl-label">GitHub</span>
+        <span class="cl-val">github.com/zachdwheeler</span>
+      </a>
+      <a href="tel:3012049047" class="contact-link">
+        <span class="cl-label">Phone</span>
+        <span class="cl-val">301-204-9047</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Zachary Wheeler — Robotics Engineering</span>
+  <span>Olin College 2029</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
